@@ -254,7 +254,7 @@ if __name__ == "__main__":
     processed_urls = set(image['image_storage_URL'])
     blobs = container_client.list_blobs()
     for blob in blobs:
-        image_url = f"https://aijinsimagedata.blob.core.windows.net/{container_name}/{blob.name}"
+        image_url = f"https://imageins.blob.core.windows.net/{container_name}/{blob.name}"
         if image_url not in processed_urls:
             image_urls.append(image_url)
 
