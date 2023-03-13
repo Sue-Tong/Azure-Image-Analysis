@@ -187,8 +187,8 @@ def create_image_analysis_df(image_url):
     with open('new.csv', mode='a', newline='') as file:
         writer = csv.writer(file)
 
-        with open('full_invalid.csv', mode='a', newline='') as file:
-            invalid = csv.writer(file)
+        with open('full_invalid.csv', mode='a', newline='') as file2:
+            invalid = csv.writer(file2)
 
             for i in range(0, len(image_url)):
                 # Call all previous functions to extract variables in interest through Azure
@@ -201,14 +201,14 @@ def create_image_analysis_df(image_url):
                     line_text, line_bouding_box = azure_ocr(read_image_url = read_image_url)
                 except:
                     invalid.writerow([i, read_image_url])
-                    invalid.flush()
+                    file2.flush()
                     continue
 
                 try:
                     has_text_ocr = text_presence_by_ocr(line_text = line_text)
                 except:
                     invalid.writerow([i, read_image_url])
-                    invalid.flush()
+                    file2.flush()
                     continue
 
                 try:
@@ -216,21 +216,21 @@ def create_image_analysis_df(image_url):
                     image_tags = azure_image_tag(read_image_url = read_image_url)
                 except:
                     invalid.writerow([i, read_image_url])
-                    invalid.flush()
+                    file2.flush()
                     continue
                 
                 try:
                     has_text_tag = text_presence_by_tag(image_tags)
                 except:
                     invalid.writerow([i, read_image_url])
-                    invalid.flush()
+                    file2.flush()
                     continue
 
                 try:
                     unique_tags = find_unique_tag(image_tags=image_tags)
                 except:
                     invalid.writerow([i, read_image_url])
-                    invalid.flush()
+                    file2.flush()
                     continue
                 
                 # Image Description part
@@ -238,7 +238,7 @@ def create_image_analysis_df(image_url):
                     description_text, description_confidence = azure_image_description(read_image_url=read_image_url)
                 except:
                     invalid.writerow([i, read_image_url])
-                    invalid.flush()
+                    file2.flush()
                     continue
 
                 # Image Category part
@@ -246,14 +246,14 @@ def create_image_analysis_df(image_url):
                     category_name, category_score = azure_image_category(read_image_url=read_image_url)
                 except:
                     invalid.writerow([i, read_image_url])
-                    invalid.flush()
+                    file2.flush()
                     continue
 
                 # gender = azure_detect_gender(read_image_url=read_image_url)
                 row = [i, name, read_image_url, line_text, line_bouding_box, has_text_ocr, image_tags, has_text_tag, unique_tags, description_text, description_confidence, category_name, category_score]
                 print(row)
                 writer.writerow(row)
-                writer.flush()
+                file.flush()
                 print("write success")
 
     return "complete"
