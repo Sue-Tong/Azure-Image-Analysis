@@ -21,15 +21,15 @@ from azure.cognitiveservices.vision.face.models import FaceAttributeType
 
 # Keys and endpoint from Microsoft Azure
 # Note: Not valid anymore
-subscription_key_cv = "32f61e402816420fb0b173d80fb7df00"
-endpoint_cv = "https://aijins-computer-vision.cognitiveservices.azure.com/"
+subscription_key_cv = "c908e35c94a04733aa62ff79e39b9377"
+endpoint_cv = "https://inscv.cognitiveservices.azure.com/"
 
 # Authentication
 computervision_client = ComputerVisionClient(endpoint_cv, CognitiveServicesCredentials(subscription_key_cv))
 
 # Save images to bolb
-connect_str = 'DefaultEndpointsProtocol=https;AccountName=aijinsimagedata;AccountKey=RmcEhNQ4LCthPRo22NgQXtq5eDu2oE8AnnT3nprzmAnH8TM7O5I+deG2PJzpEPsn4CpehXlGFaek+AStqiwsmA==;EndpointSuffix=core.windows.net'
-container_name = 'newimage'
+connect_str = 'DefaultEndpointsProtocol=https;AccountName=imageins;AccountKey=dJKdmy5acQdkDCK/NeBjGu5PCDeSeJoqHvzoflAJwGsUZGfzEvM4/dBEN9MmhLYymzHxPzDraGLs+ASt6m7iKg==;EndpointSuffix=core.windows.net'
+container_name = 'image'
 blob_service_client = BlobServiceClient.from_connection_string(connect_str)
 container_client = blob_service_client.get_container_client(container_name)
 
@@ -250,7 +250,7 @@ def create_image_analysis_df(image_url):
 
 if __name__ == "__main__":
     image_urls = []
-    image = pd.read_csv('test.csv', index_col=0)
+    image = pd.read_csv('new.csv', index_col=0)
     processed_urls = set(image['image_storage_URL'])
     blobs = container_client.list_blobs()
     for blob in blobs:
