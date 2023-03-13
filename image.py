@@ -186,6 +186,7 @@ def create_image_analysis_df(image_url):
     
     with open('new.csv', mode='a', newline='') as file:
         writer = csv.writer(file)
+        writer.writerow([])
 
         with open('full_invalid.csv', mode='a', newline='') as file2:
             invalid = csv.writer(file2)
