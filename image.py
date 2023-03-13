@@ -246,6 +246,7 @@ def create_image_analysis_df(image_url):
                 row = [i, name, read_image_url, line_text, line_bouding_box, has_text_ocr, image_tags, has_text_tag, unique_tags, description_text, description_confidence, category_name, category_score]
                 print(row)
                 writer.writerow(row)
+                writer.flush()
                 print("write success")
 
     return "complete"
