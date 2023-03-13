@@ -201,46 +201,46 @@ def create_image_analysis_df(image_url):
                     line_text, line_bouding_box = azure_ocr(read_image_url = read_image_url)
                 except:
                     invalid.writerow([i, read_image_url])
-                    pass
+                    continue
 
                 try:
                     has_text_ocr = text_presence_by_ocr(line_text = line_text)
                 except:
                     invalid.writerow([i, read_image_url])
-                    pass
+                    continue
 
                 try:
                 # Image tag part
                     image_tags = azure_image_tag(read_image_url = read_image_url)
                 except:
                     invalid.writerow([i, read_image_url])
-                    pass
+                    continue
                 
                 try:
                     has_text_tag = text_presence_by_tag(image_tags)
                 except:
                     invalid.writerow([i, read_image_url])
-                    pass
+                    continue
 
                 try:
                     unique_tags = find_unique_tag(image_tags=image_tags)
                 except:
                     invalid.writerow([i, read_image_url])
-                    pass
+                    continue
                 
                 # Image Description part
                 try:
                     description_text, description_confidence = azure_image_description(read_image_url=read_image_url)
                 except:
                     invalid.writerow([i, read_image_url])
-                    pass
+                    continue
 
                 # Image Category part
                 try:
                     category_name, category_score = azure_image_category(read_image_url=read_image_url)
                 except:
                     invalid.writerow([i, read_image_url])
-                    pass
+                    continue
 
                 # gender = azure_detect_gender(read_image_url=read_image_url)
                 row = [i, name, read_image_url, line_text, line_bouding_box, has_text_ocr, image_tags, has_text_tag, unique_tags, description_text, description_confidence, category_name, category_score]
@@ -255,7 +255,6 @@ if __name__ == "__main__":
     blobs = container_client.list_blobs()
     for blob in blobs:
         image_url = f"https://aijinsimagedata.blob.core.windows.net/{container_name}/{blob.name}"
-        print(image_url)
         if image_url not in processed_urls:
             image_urls.append(image_url)
 
