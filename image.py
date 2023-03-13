@@ -245,6 +245,7 @@ def create_image_analysis_df(image_url):
                 # gender = azure_detect_gender(read_image_url=read_image_url)
                 row = [i, name, read_image_url, line_text, line_bouding_box, has_text_ocr, image_tags, has_text_tag, unique_tags, description_text, description_confidence, category_name, category_score]
                 writer.writerow(row)
+                print("write success")
 
     return "complete"
 
