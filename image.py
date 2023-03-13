@@ -201,12 +201,14 @@ def create_image_analysis_df(image_url):
                     line_text, line_bouding_box = azure_ocr(read_image_url = read_image_url)
                 except:
                     invalid.writerow([i, read_image_url])
+                    invalid.flush()
                     continue
 
                 try:
                     has_text_ocr = text_presence_by_ocr(line_text = line_text)
                 except:
                     invalid.writerow([i, read_image_url])
+                    invalid.flush()
                     continue
 
                 try:
@@ -214,18 +216,21 @@ def create_image_analysis_df(image_url):
                     image_tags = azure_image_tag(read_image_url = read_image_url)
                 except:
                     invalid.writerow([i, read_image_url])
+                    invalid.flush()
                     continue
                 
                 try:
                     has_text_tag = text_presence_by_tag(image_tags)
                 except:
                     invalid.writerow([i, read_image_url])
+                    invalid.flush()
                     continue
 
                 try:
                     unique_tags = find_unique_tag(image_tags=image_tags)
                 except:
                     invalid.writerow([i, read_image_url])
+                    invalid.flush()
                     continue
                 
                 # Image Description part
@@ -233,6 +238,7 @@ def create_image_analysis_df(image_url):
                     description_text, description_confidence = azure_image_description(read_image_url=read_image_url)
                 except:
                     invalid.writerow([i, read_image_url])
+                    invalid.flush()
                     continue
 
                 # Image Category part
@@ -240,6 +246,7 @@ def create_image_analysis_df(image_url):
                     category_name, category_score = azure_image_category(read_image_url=read_image_url)
                 except:
                     invalid.writerow([i, read_image_url])
+                    invalid.flush()
                     continue
 
                 # gender = azure_detect_gender(read_image_url=read_image_url)
