@@ -266,8 +266,8 @@ if __name__ == "__main__":
     blobs = container_client.list_blobs()
     for blob in blobs:
         image_url = f"https://imageins.blob.core.windows.net/{container_name}/{blob.name}"
-        print(image_url)
         if image_url not in processed_urls:
+            print(image_url)
             image_urls.append(image_url)
 
     create_image_analysis_df(image_urls)
