@@ -1,0 +1,12 @@
+azure-cognitiveservices-vision-computervision
+msrest
+Pillow
+pandas
+numpy
+azure-storage-blob
+azure-cognitiveservices-vision-face
+opencv-contrib-python
+git+https://github.com/umang-singhal/pydom.git
+image-quality
+brisque
+parmap
