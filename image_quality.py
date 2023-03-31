@@ -1,34 +1,11 @@
 from brisque import BRISQUE
-import numpy as np
 import pandas as pd
 import cv2
-import matplotlib.pyplot as plt
 # if you are running this code in Jupyter notebook
 import os
-import glob
-import math
-from collections import Counter
-from multiprocessing import Process
-from time import sleep
-from random import random
-import random
-import warnings
 from dom import DOM
-import imquality.brisque as brisque
-import PIL.Image
-#from brisque import BRISQUE
-import parmap
-import multiprocessing
-warnings.filterwarnings('ignore')
-from joblib import Parallel, delayed
-from os import listdir
-from os.path import isfile, join
-import shutil
-import time
 
-import PIL.Image
-import skimage.transform
-import imquality.brisque as brisque
+
 def calculate_sharpness(image_location):
     '''Calculate the sharpness of the image'''
     iqa = DOM()
