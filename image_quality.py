@@ -36,4 +36,3 @@ if __name__ == "__main__":
                 ins_profile_data.to_csv('new.csv', index=False)
     print("done")
     ins_profile_data.to_csv('new.csv')
-
